@@ -3,6 +3,7 @@ from flask_bootstrap import Bootstrap5
 from models import db
 import crud
 from forms import CreatePostForm
+from flask_ckeditor import CKEditor
 
 
 app = Flask(__name__)
@@ -12,6 +13,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
 # Initialize extensions
 db.init_app(app)
 Bootstrap5(app)
+
+# Initialize CKEditor
+ckeditor = CKEditor(app)
 
 # Make sure the database is created before the first request
 with app.app_context():
