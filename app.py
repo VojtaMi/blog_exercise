@@ -5,7 +5,6 @@ import crud
 from forms import PostForm
 from flask_ckeditor import CKEditor
 
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
@@ -72,7 +71,6 @@ def make_post():
     )
 
 
-
 @app.route('/edit-post/<int:post_id>', methods=["GET", "POST"])
 def edit_post(post_id):
     post = crud.get_post_by_id(post_id)
@@ -97,6 +95,13 @@ def edit_post(post_id):
         submit_text="Update Post",
         form_action=url_for('edit_post', post_id=post_id)
     )
+
+
+@app.route('/delete-post/<int:post_id>')
+def delete_post(post_id):
+    crud.delete_post(post_id)
+    flash("Post deleted!", "success")
+    return redirect(url_for('home'))
 
 
 if __name__ == "__main__":
