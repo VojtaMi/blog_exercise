@@ -7,7 +7,7 @@ def get_all_posts():
 
 # Function to get a single post by ID
 def get_post_by_id(post_id):
-    return BlogPost.query.get(post_id)
+    return BlogPost.query.get_or_404(post_id)
 
 # Function to create a new post
 def add_new_post(title, subtitle, body, author, img_url):

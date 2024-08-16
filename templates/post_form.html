@@ -7,15 +7,14 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="page-heading">
-                    <!-- TODO: Show a different h1 if editing existing post -->
-                    <h1>New Post</h1>
-                    <span class="subheading">You're going to make a great blog post!</span>
+                    <h1>{{ heading }}</h1>
+                    <span class="subheading">{{ subheading }}</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
-
+{{ ckeditor.load() }}  <!-- Load CKEditor scripts -->
 <main class="mb-4">
     <div class="container">
         <div class="row">
@@ -40,8 +39,8 @@
                     </div>
                     <!-- CKEditor Field -->
                     <div class="form-group">
-                        {{ form.body.label(class="form-label") }}
-                        {{ form.body(class="form-control", id="editor") }}
+                        {{ form.body.label }}<br>
+                        {{ form.body(class="form-control") }}  <!-- CKEditor applied here -->
                     </div>
                     <div class="form-group">
                         {{ form.submit(class="btn btn-primary mt-3") }}
@@ -51,15 +50,6 @@
         </div>
     </div>
 </main>
-
-<!-- Initialize CKEditor -->
-<script>
-    ClassicEditor
-        .create(document.querySelector('#editor'))
-        .catch(error => {
-            console.error(error);
-        });
-</script>
 
 {% include "footer.html" %}
 {% endblock %}

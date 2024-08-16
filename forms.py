@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, URL, Length
 from flask_ckeditor import CKEditorField
 
 
-class CreatePostForm(FlaskForm):
+class PostForm(FlaskForm):
     title = StringField("Blog Post Title",
                         validators=[DataRequired(),
                                     Length(max=250, message="Title cannot exceed 250 characters.")])
@@ -21,6 +21,7 @@ class CreatePostForm(FlaskForm):
                           validators=[DataRequired(), URL(),
                                       Length(max=250, message="Image URL cannot exceed 250 characters.")])
 
-    body = CKEditorField("Blog Content")
+    body = CKEditorField("Blog Content",
+                         validators=[DataRequired()])
 
-    submit = SubmitField("Submit Post")
+    submit = SubmitField("Submit")
