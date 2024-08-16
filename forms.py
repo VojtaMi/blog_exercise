@@ -21,7 +21,6 @@ class CreatePostForm(FlaskForm):
                           validators=[DataRequired(), URL(),
                                       Length(max=250, message="Image URL cannot exceed 250 characters.")])
 
-    body = CKEditorField("Blog Content",
-                         validators=[DataRequired()])
+    body = CKEditorField("Blog Content")
 
     submit = SubmitField("Submit Post")
