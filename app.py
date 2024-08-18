@@ -7,21 +7,31 @@ from flask_ckeditor import CKEditor
 import os
 from dotenv import load_dotenv
 
+from flask import Flask, render_template, redirect, url_for, flash, request
+from flask_bootstrap import Bootstrap5
+from models import db, BlogPost
+import crud
+from forms import PostForm
+from flask_ckeditor import CKEditor
+import os
+from dotenv import load_dotenv
+
 # Load environment variables from the .env file
 load_dotenv()
-
-
-app = Flask(__name__)
 
 # Access the variables
 SECRET_KEY = os.getenv('SECRET_KEY')
 SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
 
-# Initialize extensions
-db.init_app(app)
-Bootstrap5(app)
+app = Flask(__name__)
 
-# Initialize CKEditor
+# Set Flask configuration
+app.config['SECRET_KEY'] = SECRET_KEY
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
+
+# Initialize extensions
+Bootstrap5(app)
+db.init_app(app)  # This should come after setting the config
 ckeditor = CKEditor(app)
 
 # Make sure the database is created before the first request
