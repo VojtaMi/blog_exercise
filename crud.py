@@ -1,4 +1,4 @@
-from models import db, BlogPost
+from models import db, BlogPost, User
 from datetime import date
 
 # Function to get all blog posts
@@ -37,3 +37,23 @@ def delete_post(post_id):
     post = BlogPost.query.get(post_id)
     db.session.delete(post)
     db.session.commit()
+
+# Users ---------------------------------------------------------------------------
+
+
+def add_user(user):
+    # Assuming `user` is an instance of the User model
+    db.session.add(user)
+    db.session.commit()
+
+
+def get_user_by_id(user_id):
+    return User.query.get(user_id)
+
+
+def get_user_by_email(email):
+    return User.query.filter_by(email=email).first()
+
+
+def email_exists(email):
+    return User.query.filter_by(email=email).first() is not None

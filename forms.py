@@ -77,7 +77,7 @@ from flask_wtf import FlaskForm
 from wtforms import EmailField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, Length, ValidationError
 from werkzeug.security import check_password_hash
-from your_app import crud  # Adjust import according to your project structure
+import crud  # Adjust import according to your project structure
 
 class LoginForm(FlaskForm):
     email = EmailField(

@@ -1,0 +1,50 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+    <h1>Register</h1>
+
+    <!-- Form starts here -->
+    <form action="{{ url_for('register') }}" method="POST">
+        <!-- CSRF protection -->
+        {{ form.hidden_tag() }}
+
+        <!-- Username field -->
+        <div>
+            <label for="username">{{ form.username.label }}</label>
+            {{ form.username(class="form-control") }}
+            {% if form.username.errors %}
+                <div class="error">
+                    {{ form.username.errors[0] }}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Email field -->
+        <div>
+            <label for="email">{{ form.email.label }}</label>
+            {{ form.email(class="form-control") }}
+            {% if form.email.errors %}
+                <div class="error">
+                    {{ form.email.errors[0] }}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Password field -->
+        <div>
+            <label for="password">{{ form.password.label }}</label>
+            {{ form.password(class="form-control") }}
+            {% if form.password.errors %}
+                <div class="error">
+                    {{ form.password.errors[0] }}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+
+
+{% endblock %}

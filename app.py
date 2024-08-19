@@ -1,20 +1,14 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_bootstrap import Bootstrap5
-from models import db, BlogPost
+from flask_login import LoginManager
+from werkzeug.security import generate_password_hash
+from models import db, BlogPost, User
 import crud
-from forms import PostForm
+from forms import PostForm, LoginForm
 from flask_ckeditor import CKEditor
 import os
 from dotenv import load_dotenv
-
-from flask import Flask, render_template, redirect, url_for, flash, request
-from flask_bootstrap import Bootstrap5
-from models import db, BlogPost
-import crud
-from forms import PostForm
-from flask_ckeditor import CKEditor
-import os
-from dotenv import load_dotenv
+import flask_login as fl_log
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -37,6 +31,19 @@ ckeditor = CKEditor(app)
 # Make sure the database is created before the first request
 with app.app_context():
     db.create_all()
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+@app.context_processor
+def inject_user():
+    return {'current_user': fl_log.current_user}
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return crud.get_user_by_id(user_id)
 
 
 # ROUTES
@@ -120,6 +127,25 @@ def delete_post(post_id):
     crud.delete_post(post_id)
     flash("Post deleted!", "success")
     return redirect(url_for('home'))
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    # Redirect already logged-in users
+    if fl_log.current_user.is_authenticated:
+        return redirect(url_for('home'))  # Redirect to a protected page or dashboard
+
+    form = LoginForm()  # Create an instance of the LoginForm
+
+    if form.validate_on_submit():  # This triggers validation, including custom validators
+        user = form.user  # Access the user object from custom validation
+
+        # Log in the user
+        fl_log.login_user(user)
+
+        return redirect(url_for('home'))  # Redirect to a protected page or dashboard
+
+    return render_template('authentication/login.html', form=form)
 
 
 if __name__ == "__main__":
