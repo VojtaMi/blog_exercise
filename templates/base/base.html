@@ -1,0 +1,19 @@
+<!-- templates/base/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'base/head.html' %} <!-- Correct: Relative to the templates/ directory -->
+</head>
+<body>
+    <!-- Header -->
+    {% include 'base/header.html' %}
+
+    <!-- Main content block -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    {% include 'base/footer.html' %}
+</body>
+</html>

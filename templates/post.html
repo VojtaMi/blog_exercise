@@ -1,4 +1,6 @@
-{% include "header.html" %}
+{% extends "base/base.html" %}
+
+{% block content %}
 
 <!-- Page Header-->
 <header class="masthead" style="background-image: url('{{post.img_url}}')">
@@ -44,4 +46,4 @@
     </div>
 </article>
 
-{% include "footer.html" %}
+{% endblock %}
