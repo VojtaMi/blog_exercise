@@ -73,13 +73,11 @@ class RegisterForm(FlaskForm):
     submit = SubmitField("Register")
 
 
-from flask_wtf import FlaskForm
-from wtforms import EmailField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Email, Length, ValidationError
-from werkzeug.security import check_password_hash
-import crud  # Adjust import according to your project structure
-
 class LoginForm(FlaskForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = None  # Initialize self.user to None
+
     email = EmailField(
         "Email",
         validators=[
@@ -105,7 +103,7 @@ class LoginForm(FlaskForm):
 
     def validate_password(self, field):
         """Check if the password matches the hashed password."""
-        if hasattr(self, 'user'):
+        if self.user:
             if not check_password_hash(self.user.password, field.data):
                 raise ValidationError("Incorrect password. Please try again.")
 

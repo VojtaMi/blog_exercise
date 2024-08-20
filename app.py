@@ -9,6 +9,7 @@ from flask_ckeditor import CKEditor
 import os
 from dotenv import load_dotenv
 import flask_login as fl_log
+from flask_migrate import Migrate
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -18,6 +19,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
 
 app = Flask(__name__)
+
+migrate = Migrate(app, db)
 
 # Set Flask configuration
 app.config['SECRET_KEY'] = SECRET_KEY
