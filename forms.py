@@ -64,6 +64,17 @@ class RegisterForm(FlaskForm):
         validators=password_validators,
     )
 
+    def validate_username(self, field):
+        if crud.get_user_by_username(field.data):
+            raise ValidationError(
+                "This username is already used")
+
+    def validate_email(self, field):
+        if crud.get_user_by_email(field.data):
+            raise ValidationError(
+                "This Email is already used")
+
+
     def validate_password(self, field):
         result = zxcvbn.zxcvbn(field.data)
         if result['score'] < 3:

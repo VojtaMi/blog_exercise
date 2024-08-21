@@ -1,10 +1,12 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_bootstrap import Bootstrap5
-from flask_login import LoginManager
+from flask_login import LoginManager, login_required
 from werkzeug.security import generate_password_hash
+
+import models
 from models import db, BlogPost, User
 import crud
-from forms import PostForm, LoginForm
+from forms import PostForm, LoginForm, RegisterForm
 from flask_ckeditor import CKEditor
 import os
 from dotenv import load_dotenv
@@ -150,6 +152,33 @@ def login():
 
     return render_template('authentication/login.html', form=form)
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    # Redirect already logged-in users
+    if fl_log.current_user.is_authenticated:
+        return redirect(url_for('home'))  # Redirect to a protected page or dashboard
+
+    form = RegisterForm()  # Create an instance of the LoginForm
+
+    if form.validate_on_submit():  # This triggers validation, including custom validators
+        email = form.email.data
+        hashed_password = generate_password_hash(form.password.data)
+        username = form.username.data
+        user = models.User(email=email, password=hashed_password, username=username)
+        crud.add_user(user)
+        # Log in the user
+        fl_log.login_user(user)
+
+        return redirect(url_for('home'))  # Redirect to a protected page or dashboard
+
+    return render_template('authentication/register.html', form=form)
+
+@app.route('/logout')
+@login_required
+def logout():
+    fl_log.logout_user()
+    flash('You have been logged out.', 'success')
+    return redirect(url_for('home'))
 
 if __name__ == "__main__":
     app.run(debug=True, port=5003)

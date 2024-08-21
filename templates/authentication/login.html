@@ -19,46 +19,50 @@
 </header>
 
 <main class="mb-4">
-  <div class="container">
-    <div class="row">
-      <!-- TODO: add a flash message here for users registering twice -->
-      <div class="col-lg-8 col-md-10 mx-auto">
-         <form action="{{ url_for('login') }}" method="POST">
-        <!-- CSRF protection -->
-        {{ form.hidden_tag() }}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <form action="{{ url_for('login') }}" method="POST">
+                    <!-- CSRF protection -->
+                    {{ form.hidden_tag() }}
 
-        <!-- Email field -->
-        <div>
-            <label for="email">{{ form.email.label }}</label>
-            {{ form.email(class="form-control") }}
-            {% if form.email.errors %}
-            <div class="error">
-                {{ form.email.errors[0] }}
+                    <!-- Email field -->
+                    <div>
+                        <label for="email">{{ form.email.label }}</label>
+                        {{ form.email(class="form-control") }}
+                        {% if form.email.errors %}
+                        <div class="error">
+                            {{ form.email.errors[0] }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Password field -->
+                    <div>
+                        <label for="password">{{ form.password.label }}</label>
+                        {{ form.password(class="form-control") }}
+                        {% if form.password.errors %}
+                        <div class="error">
+                            {{ form.password.errors[0] }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary mt-3">Login</button>
+
+
+                </form>
             </div>
-            {% endif %}
         </div>
-
-        <!-- Password field -->
-        <div>
-            <label for="password">{{ form.password.label }}</label>
-            {{ form.password(class="form-control") }}
-            {% if form.password.errors %}
-            <div class="error">
-                {{ form.password.errors[0] }}
-            </div>
-            {% endif %}
-        </div>
-
-        <!-- Submit button -->
-        <button type="submit" class="btn btn-primary mt-3">Login</button>
-    </form>
-      </div>
     </div>
-  </div>
+
+    <div class="container d-flex justify-content-center mt-3">
+        <h4>
+            <a class="link-primary" href="{{ url_for('register') }}"> Register here</a>
+        </h4>
+    </div>
 </main>
-<div class="container">
-
-
 
 
 {% endblock %}
