@@ -1,4 +1,4 @@
-from models import db, BlogPost, User
+from .models import db, BlogPost, User
 from datetime import date
 
 # Function to get all blog posts

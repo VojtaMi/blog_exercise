@@ -4,7 +4,7 @@ from wtforms import StringField, SubmitField, EmailField, PasswordField
 from wtforms.validators import DataRequired, URL, Length, Email, ValidationError
 from flask_ckeditor import CKEditorField
 import zxcvbn
-import crud
+from . import crud
 
 
 class PostForm(FlaskForm):

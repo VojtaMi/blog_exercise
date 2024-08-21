@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
-import crud
-from forms import PostForm
-from models import BlogPost, db
+from app import crud
+from app.forms import PostForm
+from app.models import BlogPost, db
 
 main = Blueprint('main', __name__)
 

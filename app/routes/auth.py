@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 import flask_login as fl_log
 from werkzeug.security import generate_password_hash
-import crud
-from forms import LoginForm, RegisterForm
-from models import User
+from app import crud
+from app.forms import LoginForm, RegisterForm
+from app.models import User
 
 auth = Blueprint('auth', __name__)
 

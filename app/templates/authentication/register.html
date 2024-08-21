@@ -4,27 +4,38 @@
 
 <header
         class="masthead"
-        style="background-image: url('{{ url_for('static', filename='assets/img/login-bg.jpg') }}')"
+        style="background-image: url('{{ url_for('static', filename='assets/img/register-bg.jpg') }}')"
 >
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="site-heading">
-                    <h1>Login</h1>
-                    <span class="subheading">Welcome Back!</span>
+                    <h1>Register</h1>
+                    <span class="subheading">Welcome!</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
-
 <main class="mb-4">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <form action="{{ url_for('login') }}" method="POST">
+                <form action="{{ url_for('auth.register') }}" method="POST">
                     <!-- CSRF protection -->
                     {{ form.hidden_tag() }}
+
+                    <!-- Username field -->
+                     <div>
+                        <label for="username">{{ form.username.label }}</label>
+                        {{ form.username(class="form-control") }}
+                        {% if form.username.errors %}
+                        <div class="error">
+                            {{ form.email.errors[0] }}
+                        </div>
+                        {% endif %}
+                    </div>
+
 
                     <!-- Email field -->
                     <div>
@@ -49,19 +60,13 @@
                     </div>
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary mt-3">Login</button>
-
-
+                    <button type="submit" class="btn btn-primary mt-3">Register</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="container d-flex justify-content-center mt-3">
-        <h4>
-            <a class="link-primary" href="{{ url_for('register') }}"> Register here</a>
-        </h4>
-    </div>
+
 </main>
 
 
