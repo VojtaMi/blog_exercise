@@ -9,6 +9,10 @@ def get_all_posts():
 def get_post_by_id(post_id):
     return BlogPost.query.get_or_404(post_id)
 
+def get_posts_by_user_id(user_id):
+    return BlogPost.query.filter_by(author_id=user_id).all()
+
+
 # Function to create a new post
 def add_new_post(title, subtitle, body, author, img_url):
     new_post = BlogPost(

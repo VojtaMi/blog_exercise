@@ -12,7 +12,7 @@
                     <h2 class="subheading">{{ post.subtitle }}</h2>
                     <span class="meta"
                     >Posted by
-            <a href="#">{{ post.author }}</a>
+            <a href="{{ url_for('main.home', user_id = post.author.id) }}">{{ post.author.username }}</a>
             on {{ post.date }}
           </span>
                 </div>
@@ -30,6 +30,8 @@
                     {{ post.body|safe }}
                 </div>
 
+                {% if current_user.is_authenticated: %}
+                {% if post.author.id == current_user.id %}
                 <div class="d-flex justify-content-between mb-4">
                     <a
                             class="btn btn-primary float-right"
@@ -41,6 +43,8 @@
                             href="{{ url_for('main.delete_post', post_id=post.id) }}"
                     >Delete Post</a>
                 </div>
+                {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>

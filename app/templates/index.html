@@ -32,14 +32,14 @@
         <!-- TODO: Add code to delete posts below -->
         <p class="post-meta">
           Posted by
-          <a href="#">{{post.author}}</a>
+          <a href="{{ url_for('main.home', user_id = post.author.id) }}">{{post.author.username}}</a>
           on {{post.date}}
         </p>
       </div>
       <!-- Divider-->
       <hr class="my-4" />
       {% endfor %}
-
+      {% if current_user.is_authenticated: %}
       <!-- New Post -->
       <div class="d-flex justify-content-end mb-4">
         <a
@@ -48,7 +48,7 @@
           >Create New Post</a
         >
       </div>
-
+      {% endif %}
       <!-- Pager-->
       <div class="d-flex justify-content-end mb-4">
         <a class="btn btn-secondary text-uppercase" href="#!">Older Posts →</a>

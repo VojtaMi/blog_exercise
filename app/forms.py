@@ -16,10 +16,6 @@ class PostForm(FlaskForm):
                            validators=[DataRequired(),
                                        Length(max=250, message="Subtitle cannot exceed 250 characters.")])
 
-    author = StringField("Your Name",
-                         validators=[DataRequired(),
-                                     Length(max=250, message="Author's name cannot exceed 250 characters.")])
-
     img_url = StringField("Background Image URL",
                           validators=[DataRequired(), URL(),
                                       Length(max=250, message="Image URL cannot exceed 250 characters.")])
