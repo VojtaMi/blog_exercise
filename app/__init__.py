@@ -5,7 +5,7 @@ from flask_ckeditor import CKEditor
 from flask_migrate import Migrate
 from dotenv import load_dotenv
 import os
-
+from . import crud
 from .models import db
 from .routes import init_routes
 

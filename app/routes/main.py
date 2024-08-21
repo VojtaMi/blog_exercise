@@ -46,3 +46,34 @@ def make_post():
         submit_text="Create Post",
         form_action=url_for('main.make_post')
     )
+@main.route('/edit-post/<int:post_id>', methods=["GET", "POST"])
+def edit_post(post_id):
+    post = crud.get_post_by_id(post_id)
+
+    form = PostForm(obj=post)  # Populate form with existing post data
+
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.subtitle = form.subtitle.data
+        post.body = form.body.data
+        post.author = form.author.data
+        post.img_url = form.img_url.data
+        db.session.commit()
+        flash("Post updated successfully!", "success")
+        return redirect(url_for('view_post', post_id=post.id))
+
+    return render_template(
+        "post_form.html",
+        form=form,
+        heading="Edit Post",
+        subheading="Update your blog post!",
+        submit_text="Update Post",
+        form_action=url_for('edit_post', post_id=post_id)
+    )
+
+
+@main.route('/delete-post/<int:post_id>')
+def delete_post(post_id):
+    crud.delete_post(post_id)
+    flash("Post deleted!", "success")
+    return redirect(url_for('home'))
